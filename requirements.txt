@@ -4,7 +4,7 @@
 # Basic Python utilities
 pyyaml>=6.0
 python-dotenv>=1.0.0
-requests>=2.28.0
+requests>=2.32.3
 
 # Optional MCP dependencies (install if using MCP framework)
 # mcp>=1.0.0

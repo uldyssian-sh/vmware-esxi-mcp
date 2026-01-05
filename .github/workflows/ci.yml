@@ -48,7 +48,7 @@ jobs:
     
     - name: Type check with mypy
       run: |
-        mypy src/ --ignore-missing-imports || echo "Source directory not found, skipping mypy"
+        mypy src/ --config-file=mypy.ini || echo "Source directory not found, skipping mypy"
     
     - name: Run unit tests
       run: |

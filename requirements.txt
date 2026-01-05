@@ -1,0 +1,36 @@
+# Core MCP dependencies
+mcp>=1.0.0
+pydantic>=2.0.0
+fastapi>=0.100.0
+uvicorn>=0.20.0
+
+# VMware ESXi integration
+pyvmomi>=8.0.0
+pyVim>=8.0.0
+requests>=2.28.0
+
+# Security and authentication
+cryptography>=40.0.0
+python-jose>=3.3.0
+passlib>=1.7.4
+
+# Configuration and logging
+pyyaml>=6.0
+python-dotenv>=1.0.0
+structlog>=23.0.0
+
+# Async and performance
+aiofiles>=23.0.0
+asyncio-throttle>=1.0.0
+cachetools>=5.0.0
+
+# Monitoring and health checks
+prometheus-client>=0.16.0
+psutil>=5.9.0
+
+# Development dependencies (optional)
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0

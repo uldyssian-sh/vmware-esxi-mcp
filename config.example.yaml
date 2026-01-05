@@ -1,0 +1,136 @@
+# VMware ESXi MCP Server Configuration
+# Copy this file to config.yaml and customize for your environment
+
+# ESXi Host Configuration
+esxi:
+  # ESXi host address (IP or FQDN)
+  host: "esxi-host.example.com"
+  
+  # Authentication credentials
+  username: "root"
+  password: "${ESXI_PASSWORD}"  # Use environment variable
+  
+  # Connection settings
+  port: 443
+  ssl_verify: true
+  timeout: 30
+  
+  # Connection pool settings
+  pool_size: 5
+  max_retries: 3
+  retry_delay: 1
+
+# MCP Server Configuration
+mcp:
+  # Server identification
+  server_name: "vmware-esxi-mcp"
+  version: "1.0.0"
+  description: "VMware ESXi MCP Server"
+  
+  # Server capabilities
+  capabilities:
+    - "vm_management"
+    - "host_operations"
+    - "resource_monitoring"
+    - "power_management"
+    - "snapshot_operations"
+  
+  # Server settings
+  host: "0.0.0.0"
+  port: 8080
+  workers: 4
+  
+  # Request limits
+  max_request_size: "10MB"
+  timeout: 300
+
+# Security Configuration
+security:
+  # API authentication
+  api_key: "${MCP_API_KEY}"
+  
+  # Rate limiting
+  rate_limit: 100
+  rate_window: 60
+  
+  # Session management
+  session_timeout: 3600
+  max_sessions: 50
+  
+  # Encryption settings
+  encryption: "AES256"
+  
+  # SSL/TLS settings
+  ssl_cert: "/path/to/cert.pem"
+  ssl_key: "/path/to/key.pem"
+
+# Logging Configuration
+logging:
+  # Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+  level: "INFO"
+  
+  # Log output
+  file: "esxi-mcp.log"
+  console: true
+  
+  # Log rotation
+  max_size: "10MB"
+  backup_count: 5
+  
+  # Log format
+  format: "json"
+  
+  # Audit logging
+  audit:
+    enabled: true
+    file: "audit.log"
+    level: "INFO"
+
+# Performance Configuration
+performance:
+  # Caching settings
+  cache:
+    enabled: true
+    ttl: 300
+    max_size: 1000
+  
+  # Async settings
+  async_operations: true
+  max_concurrent: 10
+  
+  # Monitoring
+  metrics:
+    enabled: true
+    port: 9090
+    path: "/metrics"
+
+# Feature Flags
+features:
+  # Enable/disable specific features
+  vm_operations: true
+  host_management: true
+  resource_monitoring: true
+  snapshot_management: true
+  power_operations: true
+  
+  # Experimental features
+  experimental:
+    bulk_operations: false
+    advanced_monitoring: false
+
+# Environment-specific settings
+environment: "production"  # development, staging, production
+
+# Health check configuration
+health:
+  enabled: true
+  endpoint: "/health"
+  interval: 30
+  timeout: 10
+
+# Backup configuration
+backup:
+  enabled: false
+  interval: "24h"
+  retention: "7d"
+  location: "/backup"

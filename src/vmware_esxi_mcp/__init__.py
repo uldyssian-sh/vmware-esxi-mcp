@@ -8,10 +8,10 @@ infrastructure monitoring.
 
 Author: uldyssian-sh
 License: MIT
-Version: 1.6.0
+Version: 1.5.0
 """
 
-__version__ = "1.6.0"
+__version__ = "1.5.0"
 __author__ = "uldyssian-sh"
 __license__ = "MIT"
 __description__ = "VMware ESXi MCP Server - Professional ESXi management via MCP"

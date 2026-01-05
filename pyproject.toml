@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vmware-esxi-mcp"
-version = "1.6.0"
+version = "1.5.0"
 authors = [
     {name = "uldyssian-sh", email = "25517637+uldyssian-sh@users.noreply.github.com"},
 ]

@@ -69,7 +69,7 @@ esxi:
 
 mcp:
   server_name: "vmware-esxi-mcp"
-  version: "1.7.0"
+  version: "1.5.0"
   capabilities:
     - "vm_management"
     - "host_operations"

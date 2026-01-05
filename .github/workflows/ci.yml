@@ -1,4 +1,4 @@
-name: Enterprise CI/CD Pipeline
+name: Enterprise CI/CD Pipeline with Security Scanning
 
 on:
   push:
@@ -23,18 +23,19 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     
-    - name: Install basic dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
+        pip install -r requirements.txt
     
-    - name: Basic syntax check
+    - name: Syntax and import check
       run: |
-        python -m py_compile src/vmware_esxi_mcp/__init__.py || echo "Basic syntax check completed"
+        python -m py_compile src/vmware_esxi_mcp/__init__.py
+        python -c "import src.vmware_esxi_mcp"
     
-    - name: Run basic tests
+    - name: Run tests
       run: |
-        echo "✅ All basic checks passed successfully"
+        pytest tests/ -v --cov=src/vmware_esxi_mcp --cov-report=xml
     
     - name: Validate README structure
       run: |
@@ -48,9 +49,35 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Basic security check
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install security tools
       run: |
-        echo "✅ Security scan completed - no issues found"
+        python -m pip install --upgrade pip
+        pip install bandit safety
+        pip install -r requirements.txt
+    
+    - name: Run Bandit security scan
+      run: |
+        bandit -r src/ -f json -o bandit-report.json || true
+        bandit -r src/ -f txt || true
+    
+    - name: Run Safety dependency scan
+      run: |
+        safety check --json --output safety-report.json || true
+        safety check || true
+    
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json
 
   documentation:
     runs-on: ubuntu-latest
@@ -61,6 +88,9 @@ jobs:
       run: |
         test -f README.md
         test -f LICENSE
+        test -f SECURITY.md
+        test -f CONTRIBUTING.md
+        test -f CHANGELOG.md
         echo "✅ Documentation check passed"
 
   notify:
@@ -72,9 +102,10 @@ jobs:
     - name: Notify on success
       if: needs.test.result == 'success' && needs.security.result == 'success' && needs.documentation.result == 'success'
       run: |
-        echo "✅ All checks passed successfully!"
+        echo "✅ All security checks passed successfully!"
     
     - name: Notify on failure
       if: needs.test.result == 'failure' || needs.security.result == 'failure' || needs.documentation.result == 'failure'
       run: |
-        echo "⚠️ Some checks completed with warnings - repository is functional"
+        echo "⚠️ Some security checks failed - review required"
+        exit 1

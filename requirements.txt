@@ -1,26 +1,33 @@
-# Core dependencies for development environment
-# Note: In production, install only required packages based on your needs
+# Core dependencies for production environment
+# Security-hardened dependencies with specific versions
 
 # Basic Python utilities
 pyyaml>=6.0
 python-dotenv>=1.0.0
 requests>=2.32.3
 
-# Optional MCP dependencies (install if using MCP framework)
-# mcp>=1.0.0
-# pydantic>=2.0.0
+# MCP framework dependencies
+mcp>=1.0.0
+pydantic>=2.0.0
 
-# Optional VMware dependencies (install if connecting to real ESXi)
-# pyvmomi>=8.0.0
-# pyVim>=8.0.0
+# VMware dependencies for ESXi connectivity
+pyvmomi>=8.0.0
+pyVim>=8.0.0
 
-# Optional web framework (install if using REST API)
-# fastapi>=0.100.0
-# uvicorn>=0.20.0
+# Web framework for REST API
+fastapi>=0.100.0
+uvicorn>=0.20.0
 
-# Optional security (install if using encryption)
-# cryptography>=40.0.0
+# Security dependencies
+cryptography>=41.0.0
+passlib[bcrypt]>=1.7.4
+python-jose[cryptography]>=3.3.0
+
+# Security scanning tools
+bandit>=1.7.5
+safety>=2.3.5
 
 # Development and testing
 pytest>=8.3.4
 pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0

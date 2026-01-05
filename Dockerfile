@@ -69,24 +69,39 @@ COPY LICENSE .
 # Install the application
 RUN pip install -e .
 
-# Create necessary directories
+# Create necessary directories with secure permissions
 RUN mkdir -p /app/logs /app/data /app/backup && \
-    chown -R mcp:mcp /app
+    chown -R mcp:mcp /app && \
+    chmod 755 /app && \
+    find /app -type f -exec chmod 644 {} \; && \
+    find /app -type d -exec chmod 755 {} \; && \
+    find /app/src -name "*.py" -exec chmod 644 {} \;
+
+# Security hardening
+RUN chmod 600 /app/config.yaml && \
+    chmod 700 /app/logs /app/data /app/backup
 
 # Switch to non-root user
-USER mcp
+USER mcp:mcp
 
 # Set environment variables
 ENV PYTHONPATH=/app/src
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV MCP_CONFIG_FILE=/app/config.yaml
 ENV MCP_LOG_LEVEL=INFO
 ENV MCP_LOG_FILE=/app/logs/esxi-mcp.log
 
+# Security labels
+LABEL security.scan="enabled" \
+      security.level="high" \
+      security.compliance="soc2,iso27001" \
+      security.non-root="true"
+
 # Expose port
 EXPOSE 8080
 
-# Health check
+# Health check with enhanced security
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 

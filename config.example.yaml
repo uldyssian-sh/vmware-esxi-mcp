@@ -4,10 +4,10 @@
 # ESXi Host Configuration
 esxi:
   # ESXi host address (IP or FQDN)
-  host: "esxi-host.example.com"
+  host: "${ESXI_HOST}"
   
   # Authentication credentials
-  username: "root"
+  username: "${ESXI_USERNAME}"
   password: "${ESXI_PASSWORD}"  # Use environment variable
   
   # Connection settings

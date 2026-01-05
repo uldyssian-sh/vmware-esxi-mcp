@@ -1,0 +1,99 @@
+# Dependabot configuration for VMware ESXi MCP Server
+# Automatically updates dependencies to maintain security and compatibility
+
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "uldyssian-sh"
+    assignees:
+      - "uldyssian-sh"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "security"
+      - "automated"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # Ignore major version updates for stability
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-updates:
+        patterns:
+          - "cryptography"
+          - "pyjwt"
+          - "passlib"
+          - "bcrypt"
+        update-types:
+          - "security"
+      testing-dependencies:
+        patterns:
+          - "pytest*"
+          - "coverage"
+          - "mock"
+        update-types:
+          - "minor"
+          - "patch"
+      vmware-dependencies:
+        patterns:
+          - "pyvmomi"
+          - "pyVim"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "uldyssian-sh"
+    assignees:
+      - "uldyssian-sh"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "github-actions"
+      - "ci-cd"
+      - "automated"
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 2
+    reviewers:
+      - "uldyssian-sh"
+    assignees:
+      - "uldyssian-sh"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "docker"
+      - "infrastructure"
+      - "automated"

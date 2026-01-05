@@ -24,7 +24,7 @@ esxi:
 mcp:
   # Server identification
   server_name: "vmware-esxi-mcp"
-  version: "1.0.0"
+  version: "1.6.0"
   description: "VMware ESXi MCP Server"
   
   # Server capabilities

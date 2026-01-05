@@ -23,9 +23,16 @@ cryptography>=41.0.0
 passlib[bcrypt]>=1.7.4
 python-jose[cryptography]>=3.3.0
 
+# Enterprise secrets management
+keyring>=24.0.0
+hvac>=1.2.0  # HashiCorp Vault client
+
 # Security scanning tools
 bandit>=1.7.5
 safety>=2.3.5
+
+# Structured logging
+structlog>=23.0.0
 
 # Development and testing
 pytest>=8.3.4

@@ -28,6 +28,7 @@ A professional Model Context Protocol (MCP) server implementation for VMware ESX
 - **Audit Logging**: Comprehensive operation tracking
 - **Role-Based Access**: Granular permission controls
 - **Performance Optimization**: Bulk operations and async processing
+- **Exception Management**: Comprehensive error handling with custom exception classes
 - **Monitoring Integration**: Prometheus metrics and health checks
 
 ## Quick Start
@@ -68,7 +69,7 @@ esxi:
 
 mcp:
   server_name: "vmware-esxi-mcp"
-  version: "1.0.0"
+  version: "1.7.0"
   capabilities:
     - "vm_management"
     - "host_operations"

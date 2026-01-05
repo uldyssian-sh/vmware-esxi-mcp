@@ -40,14 +40,7 @@ jobs:
       run: |
         git add .github/contributors/
         if ! git diff --staged --quiet; then
-          git commit -m "security: ultra secure contributors setup
-
-- GitHub Actions native verified commits
-- Dependabot native verified commits  
-- Zero sensitive data exposure
-- Full security compliance
-
-Co-authored-by: GitHub Actions <actions@github.com>"
+          git commit -m "security: ultra secure contributors setup - GitHub Actions native verified commits - Dependabot native verified commits - Zero sensitive data exposure - Full security compliance Co-authored-by: GitHub Actions <actions@github.com>"
           git push
         else
           echo "No changes to commit"
